@@ -1,0 +1,18 @@
+name: Scheduled Load
+
+on:
+  schedule:
+    # Запускати кожні 5 хвилин
+    - cron: '*/5 * * * *'
+  workflow_dispatch: # дозволяє запустити вручну
+
+jobs:
+  attack:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run load test
+        run: |
+          for i in {1..20}; do
+            curl -sS --max-time 30 "http://adampil-zosh.km.sch.in.ua/" -o /dev/null &
+          done
+          wait
