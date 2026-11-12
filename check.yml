@@ -1,0 +1,14 @@
+name: Load Test
+on:
+  schedule:
+    - cron: '*/5 * * * *' 
+  workflow_dispatch:
+
+jobs:
+  attack:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install wrk
+        run: sudo apt-get update && sudo apt-get install -y wrk
+      - name: Run attack
+        run: wrk -t 4 -c 100 -d 60s "http://adampil-zosh.km.sch.in.ua/news/id/294" || true
